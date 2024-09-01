@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document to Text Converter</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Convert your scanned document to text, CSV files in minutes</h1>
+
+    <div id="uploadSection">
+        <button onclick="document.getElementById('fileInput').click()">Upload Scanned Document</button>
+        <input type="file" id="fileInput" accept=".jpg,.jpeg,.png,.pdf" style="display:none" />
+        <br/><br/>
+        <span id="fileName"></span>
+    </div>
+
+    <div id="convertSection" style="display:none;">
+        <button id="convertButton">Convert To Text</button>
+    </div>
+
+    <!-- The download link is no longer part of the initial HTML structure -->
+
+    <script>
+        let file = null;
+
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            file = event.target.files[0];
+            if (file) {
+                document.getElementById('fileName').textContent = 'Selected file: ' + file.name;
+                document.getElementById('convertSection').style.display = 'block';
+            }
+        });
+
+        document.getElementById('convertButton').addEventListener('click', function() {
+            if (file) {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('convertSection').style.display = 'none';
+
+                        // Dynamically create the download link section
+                        const downloadSection = document.createElement('div');
+                        downloadSection.id = 'downloadLink';
+
+                        const paragraph = document.createElement('p');
+                        paragraph.textContent = 'Document Converted! ';
+
+                        const downloadLink = document.createElement('a');
+                        downloadLink.href = data.downloadUrl;
+                        downloadLink.id = 'downloadTextLink';
+                        downloadLink.textContent = 'Download Result';
+
+                        paragraph.appendChild(downloadLink);
+                        downloadSection.appendChild(paragraph);
+                        document.body.appendChild(downloadSection);
+                    } else {
+                        alert('Failed to convert document.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while uploading the file.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

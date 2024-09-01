@@ -1,0 +1,59 @@
+/* style.css */
+
+/* General body styles */
+body {
+    background-color: #1a0303; /* Black background */
+    color: #ff4500; /* Red text with a hint of orange */
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+
+/* Heading styles */
+h1 {
+    color: #177017; /* Green color */
+    font-size: 2.5em;
+}
+
+/* Button styles */
+button {
+    background-color: #e7480e; /* Red button background */
+    color: #32cd32; /* Green text color */
+    border: 2px solid #163eac;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #32cd32; /* Change background to green on hover */
+    color: #ff4500; /* Change text to red on hover */
+}
+
+/* File input and display styles */
+#fileName {
+    color: #ffffff; /* White text for the filename */
+    font-style: italic;
+}
+
+/* Convert Section */
+#convertSection {
+    margin-top: 20px;
+}
+
+/* Download link styles */
+#downloadLink p {
+    color: #32cd32; /* Green color */
+    font-weight: bold;
+}
+
+#downloadLink a {
+    color: #ff4500; /* Red color for the hyperlink */
+    text-decoration: underline;
+    font-size: 1.2em;
+}
+
+#downloadLink a:hover {
+    color: #32cd32; /* Green color on hover */
+}
